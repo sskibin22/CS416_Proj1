@@ -1,6 +1,7 @@
 /*
-* Add NetID and names of all project partners
-*
+* Scott Skibin (ss3793)
+* Kevin Schwarz (kjs309)
+* ilab2
 */
 #include <stdio.h>
 #include <string.h>
