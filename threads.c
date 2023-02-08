@@ -27,8 +27,9 @@ void *add_counter(void *arg) {
     /* Add thread synchronizaiton logic in this function */	
 
     for(i = 0; i < loop; i++){
-
-	x = x + 1;
+        pthread_mutex_lock(arg);
+	    x = x + 1;
+        pthread_mutex_unlock(arg);
     }
 
     return NULL;
@@ -52,10 +53,33 @@ int main(int argc, char *argv[]) {
 
     printf("Going to run four threads to increment x up to %d\n", 4 * loop);
 
-    /* Implement Code Here */
+    pthread_mutex_init(&mutex, NULL);
 
+    if(pthread_create(&t1, NULL, add_counter, &mutex)){
+        perror("ERROR: creating directory thread");
+    }
+    if(pthread_create(&t2, NULL, add_counter, &mutex)){
+        perror("ERROR: creating directory thread");
+    }
+    if(pthread_create(&t3, NULL, add_counter, &mutex)){
+        perror("ERROR: creating directory thread");
+    }
+    if(pthread_create(&t4, NULL, add_counter, &mutex)){
+        perror("ERROR: creating directory thread");
+    }
 
-    /* Make sure to join the threads */
+    if (pthread_join(t1, NULL)) {
+        perror("ERROR: joining directory thread");        
+    }
+    if (pthread_join(t2, NULL)) {
+        perror("ERROR: joining directory thread");        
+    }
+    if (pthread_join(t3, NULL)) {
+        perror("ERROR: joining directory thread");        
+    }
+    if (pthread_join(t4, NULL)) {
+        perror("ERROR: joining directory thread");        
+    }
 
 
     printf("The final value of x is %d\n", x);
