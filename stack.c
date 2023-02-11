@@ -12,18 +12,25 @@
  * such that you get to the line after "r2 = *( (int *) 0 )"
  */
 void signal_handle(int signalno) {
-
+    
     printf("handling segmentation fault!\n");
-
+    int *ptr;
+    ptr = &signalno;
+    printf("Address of signalno: %p\n", &signalno);
+    int *pc; 
+    pc = ptr+127874320;
+    //printf("PC: %p\n", &pc);
+    //*pc += 4;
+    //printf("Updated PC: %p\n", &pc);
     /* Step 2: Handle segfault and change the stack*/
 }
 
 int main(int argc, char *argv[]) {
-
+    
     int r2 = 0;
 
     /* Step 1: Register signal handler first*/
-
+    signal(SIGSEGV, signal_handle);
 
     r2 = *( (int *) 0 ); // This will generate segmentation fault
 
