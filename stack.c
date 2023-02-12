@@ -16,12 +16,21 @@ void signal_handle(int signalno) {
     printf("handling segmentation fault!\n");
     int *ptr;
     ptr = &signalno;
-    printf("Address of signalno: %p\n", &signalno);
+    //int *ptr2;
+    //ptr2 = ptr;
+    // for(int i = 0; i <20; i++){
+    //     if(*ptr2 == 0xf7fcfdb0){
+    //         printf("value of i%d\n", i);
+    //     } 
+    //     ptr2--;
+    // }
+    printf("Value of signalno: %d\n", signalno);
+    printf("Address of signalno: %p\n", ptr);
     int *pc; 
-    pc = ptr+127874320;
-    //printf("PC: %p\n", &pc);
-    //*pc += 4;
-    //printf("Updated PC: %p\n", &pc);
+    pc = ptr-0x5B1CDC;
+    printf("PC: %p\n", pc);
+    //*pc[0] += 0x1;
+    //printf("Updated PC: %p\n", pc);
     /* Step 2: Handle segfault and change the stack*/
 }
 
