@@ -12,29 +12,23 @@
  * such that you get to the line after "r2 = *( (int *) 0 )"
  */
 void signal_handle(int signalno) {
-    
     printf("handling segmentation fault!\n");
-    int *ptr;
-    ptr = &signalno;
-    printf("Value of signalno: %d\n", signalno);
-    printf("Address of signalno: %p\n", ptr);
+    int *ptr;               // init ptr variable for address of signalno
+    ptr = &signalno;        // set ptr = to address of signalno
     
     /* Step 2: Handle segfault and change the stack*/
     int *pc; 
-    pc = ptr-0x4B771C; //signalno ptr - (offset between signalnoptr and saved return address)
-    printf("PC: %p\n", pc);
-    printf("Address of PC: %p\n", &pc);
-    *pc = *pc+135; 
-    printf("Updated PC: %p\n", pc);
+    pc = ptr+15;            //&signalno+offset between &signalno and &badInstruction
+    *pc += 2;               // incrementing by length of bad instruction
 }
 
 int main(int argc, char *argv[]) {
+    int r2 = 0;
+
     /* Step 1: Register signal handler first*/
     signal(SIGSEGV, signal_handle);
 
-    int r2 = 0;
-
-    r2 = *( (int *) 0 ); // This will generate segmentation fault
+    r2 = *( (int *) 0 );    // This will generate segmentation fault
 
     r2 = r2 + 1 * 30;
     printf("result after handling seg fault %d!\n", r2);
