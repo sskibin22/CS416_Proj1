@@ -18,7 +18,7 @@ void signal_handle(int signalno) {
     
     /* Step 2: Handle segfault and change the stack*/
     int *pc; 
-    pc = ptr+15;            //&signalno+offset between &signalno and &badInstruction
+    pc = ptr+39;            //&signalno+offset between &signalno and &badInstruction
     *pc += 2;               // incrementing by length of bad instruction
 }
 
