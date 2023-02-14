@@ -10,19 +10,7 @@
 #define NUM_TOP_BITS 4 //top bits to extract
 #define BITMAP_SIZE 4 //size of the bitmap array
 #define SET_BIT_INDEX 17 //bit index to set 
-#define GET_BIT_INDEX 32 //bit index to read
-
-//DELETE THIS BEFORE SUBMISSION******
-#define BYTE_TO_BINARY_PATTERN "%c%c%c%c%c%c%c%c"
-#define BYTE_TO_BINARY(byte)  \
-  (byte & 0x80 ? '1' : '0'), \
-  (byte & 0x40 ? '1' : '0'), \
-  (byte & 0x20 ? '1' : '0'), \
-  (byte & 0x10 ? '1' : '0'), \
-  (byte & 0x08 ? '1' : '0'), \
-  (byte & 0x04 ? '1' : '0'), \
-  (byte & 0x02 ? '1' : '0'), \
-  (byte & 0x01 ? '1' : '0')
+#define GET_BIT_INDEX 17 //bit index to read
 
 static unsigned int myaddress = 4026544704;   // Binary  would be 11110000000000000011001001000000
 
@@ -36,13 +24,7 @@ static unsigned int get_top_bits(unsigned int value,  int num_bits)
     unsigned int top_bits = value >> shift;
     return top_bits;
 }
-//DELETE THIS BEFORE SUBMISSION******
-static void print_binary(char *bitmap, int size){
-    for(int i = 0; i < size; i++){
-        printf(" "BYTE_TO_BINARY_PATTERN, BYTE_TO_BINARY(bitmap[i]));
-    }
-    printf("\n");
-}
+
 /* 
  * Function 2: SETTING A BIT AT AN INDEX 
  * Function to set a bit at "index" bitmap
@@ -56,10 +38,7 @@ static void set_bit_at_index(char *bitmap, int index)
     else{
         int byte = index / 8;
         int i = 7 - (index - (byte*8));
-        //DELETE PRINT STATEMENTS BEFORE SUBMISSION*****
-        print_binary(bitmap, BITMAP_SIZE);
         bitmap[byte] |= (1 << i);
-        print_binary(bitmap, BITMAP_SIZE);
     }
     return;
 }
